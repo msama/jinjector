@@ -1,0 +1,35 @@
+#summary Links to external sites and resources about JInjector.
+
+= Introduction =
+
+Here are links to various web sites related to JInjector.
+
+
+= Details =
+
+== Resources on JInjector ==
+[http://www.youtube.com/watch?v=B2v5jQ9NLVg GTAC Video on JInjector] We presented JInjector at Google's Test Automation Conference in Seattle in October 2008. The video is available online and may help provide an overview of our work.
+
+== Software used by JInjector ==
+[http://ant.apache.org/ Ant]  ubiquitous build scripts.
+
+[http://antenna.sourceforge.net/ Antenna] add in tasks to Ant for J2ME development.
+
+[http://asm.objectweb.org/ !ObjectWeb ASM] the library used to perform the code injection in JInjector.
+
+[http://www.cobertura4j2me.org/ Cobertura for J2me] An alternative to JInjector for code coverage.
+
+[http://code.google.com/p/google-collections/ Google Collections] used by the JInjector tool.
+
+[http://j2meunit.sourceforge.net/ J2MEUnit] Used as the test runner for JInjector.
+
+[http://java.sun.com/javame/index.jsp Sun's homepage for Java ME] also known as J2ME.
+
+[http://java.sun.com/products/sjwtoolkit/overview.html Sun Java Wireless Toolkit (WTK)] commonly used to build and test J2ME applications, and used in the JInjector samples.
+
+[http://ltp.sourceforge.net/coverage/lcov.php Lcov] Used to generates graphs of the code coverage results, and part of the Linux Tools Project. We use genhtml, a perl script from this package.
+
+== General test automation articles ==
+[http://efforts.embedded.ufcg.edu.br/javame/?p=11 
+Good article on using J2MEUnit and Eclipse] One tip they didn't cover, set the full package+class as the argument for j2meunit e.g. org.mydomain.mypackage.AllInjectedTestsSuite
+
