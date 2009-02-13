@@ -8,7 +8,7 @@ JInjector was originally envisaged as a way to create and run end-to-end (system
 
 JInjector is complementary to unit testing frameworks such as [http://j2meunit.sourceforge.net/ J2MEUnit], and an alternative using [http://www.cobertura4j2me.org/ 'Cobertura for J2ME'] for code coverage.
 
-A comparison of JInjector and Cobertura is available in our GTAC presentation {link to lunks / resources page}, the key points are: Both use code injection and Objectweb's [http://asm.objectweb.org/ 'ASM library']. JInjector runs significantly faster and is optimized for runtime performance on resource-constrained devices. Cobertura generates slightly smaller versions of the injected application.
+A comparison of JInjector and Cobertura is available in our GTAC presentation see LinksAndResources, the key points are: Both use code injection and Objectweb's [http://asm.objectweb.org/ 'ASM library']. JInjector runs significantly faster and is optimized for runtime performance on resource-constrained devices. Cobertura generates slightly smaller versions of the injected application.
 
 
 The code can be run in simulators or on devices.
