@@ -23,21 +23,24 @@
 
 rm -rf lib/*
 
-wget -O google-collect-snapshot-20080820.zip http://google-collections.googlecode.com/files/google-collect-snapshot-20080820.zip
-unzip -j -d lib google-collect-snapshot-20080820.zip \*.jar
-rm google-collect-snapshot-20080820.zip
-
+wget -O google-collect-snapshot-20090211.zip http://google-collections.googlecode.com/files/google-collect-snapshot-20090211.zip
+unzip -j -d lib google-collect-snapshot-20090211.zip \*.jar
+rm google-collect-snapshot-20090211.zip
 
 wget -O asm-3.1-bin.zip http://download.forge.objectweb.org/asm/asm-3.1-bin.zip
 unzip -j -d lib asm-3.1-bin.zip \*.jar
+rm asm-3.1-bin.zip
 
 wget -O junit3.8.1.zip http://heanet.dl.sourceforge.net/sourceforge/junit/junit3.8.1.zip 
 unzip -j -d lib junit3.8.1.zip \*.jar
+rm junit3.8.1.zip
 
 wget -O easymock2.4.zip http://prdownloads.sourceforge.net/easymock/easymock2.4.zip
 unzip -j -d lib easymock2.4.zip \*.jar
+rm easymock2.4.zip
 
 wget -O easymockclassextension2.4.zip http://prdownloads.sourceforge.net/easymock/easymockclassextension2.4.zip
 unzip -j -d lib easymockclassextension2.4.zip \*.jar
+rm easymockclassextension2.4.zip
 
 wget -O lib/cglib-2.2.jar http://puzzle.dl.sourceforge.net/sourceforge/cglib/cglib-2.2.jar

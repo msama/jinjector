@@ -16,7 +16,7 @@
 package com.google.devtools.build.wireless.testing.java.injector.coverage;
 
 import com.google.common.base.Join;
-import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.LinkedListMultimap;
 import com.google.devtools.build.wireless.testing.java.injector.InstrumentedJarCreator;
 import com.google.devtools.build.wireless.testing.java.injector.util.Closeables;
 import com.google.devtools.build.wireless.testing.java.injector.util.Files;
@@ -137,8 +137,8 @@ public class CoverageStatisticContainer {
   /** 
    * List of instrumented lines for each file. 
    */
-  private final ArrayListMultimap<String, Integer> instrumentedLines =
-      new ArrayListMultimap<String, Integer>();
+  private final LinkedListMultimap<String, Integer> instrumentedLines =
+      new LinkedListMultimap<String, Integer>();
 
   private int totalLineCount = 0;
   
