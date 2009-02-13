@@ -30,6 +30,4 @@ Here are links to various web sites related to JInjector.
 [http://ltp.sourceforge.net/coverage/lcov.php Lcov] Used to generates graphs of the code coverage results, and part of the Linux Tools Project. We use genhtml, a perl script from this package.
 
 == General test automation articles ==
-[http://efforts.embedded.ufcg.edu.br/javame/?p=11 
-Good article on using J2MEUnit and Eclipse] One tip they didn't cover, set the full package+class as the argument for j2meunit e.g. org.mydomain.mypackage.AllInjectedTestsSuite
-
+[http://efforts.embedded.ufcg.edu.br/javame/?p=11 Using J2MEUnit and Eclipse] A good article on the subject. One additional tip, set the full package+class as the argument for j2meunit e.g. org.mydomain.mypackage.AllInjectedTestsSuite
