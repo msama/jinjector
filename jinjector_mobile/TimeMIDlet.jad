@@ -1,0 +1,9 @@
+MIDlet-Jar-Size: 22798
+MIDlet-1: TimeMIDlet,,example.TimeMIDlet
+MIDlet-Jar-URL: TimeMIDlet.jar
+MicroEdition-Configuration: CLDC-1.1
+MIDlet-Version: 1.0.0
+J2MEUnitTestClasses: example.AllTests
+MIDlet-Vendor: JInjector Example
+MIDlet-Name: TimeMIDlet Midlet Suite
+MicroEdition-Profile: MIDP-2.0
