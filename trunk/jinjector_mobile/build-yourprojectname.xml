@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<project name="YourMIDlet" default="run-WTK" basedir=".">
+
+<property file="jinjector.yourprojectname.properties"/>
+  
+  <!-- base.bin is the folder in which the original jar will be decompressed -->
+  <property name="bin" location="${basedir}/bin" />  
+        
+  <!-- base.decorators folder for the decorators -->
+  <property name="decorators.src" location="${basedir}/decorators_src" />
+  <property name="dist" value="dist" />
+  <property name="instrumented" location="${basedir}/instrumented" />
+  <property name="J2MEUNIT" location="${basedir}/lib/j2meunit.jar" />
+  <property name="jinjector" location="tools/jinjector.jar" />
+  <property name="JadGenerator" value="${basedir}/tools/jadgenerator_deploy.jar" />
+  <!-- generated jar/jad file -->
+  <property name="jarfile_instrumented" location="${dist}/${ant.project.name}.jar" />
+  <property name="jadfile_instrumented" location="${dist}/${ant.project.name}.jad" />
+  <property name="jadfile_original" value = "${ant.project.name}.jad" />
+  <property name="manifest" value="MANIFEST.MF" />
+  <property name="LIBS" value="${J2MEUNIT}" />
+
+    <!-- preverified destination folder for the preverifier -->
+  <property name="preverified" location="${basedir}/preverified" />
+
+
+<!-- TODO: Add set of essential files here. -->
+<fail message="Essential files are missing.">
+    <condition>
+        <not>
+            <resourcecount count="1">
+                <fileset id="fs" dir="." includes="lib/j2meunit.jar"/>
+            </resourcecount>
+        </not>
+    </condition>
+</fail>
+
+<target name="debug_ant" depends="" description="Stuff to help me debug ant's behavior">
+   <echo message="WTK = ${WTK}" />
+   <echo message="basedir = ${basedir}" />
+   <echo message="classpath = ${classpath}" />
+   <echo message="instrumented = ${instrumented}" />
+</target>
+<!-- WTK ************************************* WTK location on local machine **** -->
+<property name="WTK" value ="c:\wtk2.6" />
+<property name="preverifier" value="${WTK}/bin/preverify" />
+<property name="emulator.device" value="DefaultColorPhone" />
+
+  <!-- WTK jars -->
+  <path id="WTK.lib">
+    <fileset dir="${WTK}/lib">
+      <include name="cldcapi11.jar" />
+      <include name="**/midpapi20.jar" />
+      <include name="**/jsr082.jar" />
+      <include name="**/jsr75.jar" />
+      <include name="**/jsr184.jar" />
+      <include name="**/j2me-ws.jar" />
+      <include name="**/mmapi.jar" />
+      <include name="**/wma20.jar" />
+    </fileset>
+  </path>
+
+  <!-- classpath: must contain WTK and all the used libraries -->
+  <path id="class.path">
+    <path refid="WTK.lib" />
+    <!-- libraries -->
+    <pathelement path="${LIBS}" />
+    <pathelement path="${bin}" />
+  </path>
+  <pathconvert pathsep=" " property="classpath_space" refid="class.path">
+    <map from="${basedir}" to=""/>
+    </pathconvert>
+  
+  <property name="classpath" refid="class.path" />
+  
+  <!-- Extract -->
+  <target name="extract" description="Extracts ${jarfile_original} in ${bin}" >
+    <mkdir dir="${bin}" />
+  	<unzip src="${J2MEUNIT}" dest="${bin}"  />
+  </target> 
+ 
+  <target name="compile" depends="debug_ant, extract"  description="Compiles the source"> 
+    <javac srcdir="${basedir}/src" 
+      destdir="${bin}" 
+      includeAntRuntime="no" 
+      classpathref="class.path" 
+      includes="**" 
+      debug="true" 
+      source="1.3" target="1.3" 
+      deprecation="yes" 
+      failonerror="true" 
+      encoding="utf8">
+    </javac>
+</target>
+
+  <target name="unittests" depends="compile"  description="Compiles the unit tests">
+    <javac srcdir="${basedir}/test" 
+      destdir="${instrumented}" 
+      includeAntRuntime="no" 
+      classpathref="class.path" 
+      includes="**" 
+      debug="true" 
+      source="1.3" target="1.3" 
+      deprecation="yes" 
+      failonerror="true" 
+      encoding="utf8">
+    </javac>
+</target>
+
+
+  <target name="injectiontests" depends="unittests"  description="Compiles the tests to inject">
+    <javac srcdir="${basedir}/tests_to_inject" 
+      destdir="${instrumented}" 
+      includeAntRuntime="no" 
+      classpathref="class.path" 
+      includes="**" 
+      debug="true" 
+      source="1.3" target="1.3" 
+      deprecation="yes" 
+      failonerror="true" 
+      encoding="utf8">
+    </javac>
+</target>
+
+  <target name="compile.decorators" depends="compile" description="Compiles the decorators">
+<mkdir dir="${instrumented}"/>
+    <javac srcdir="${decorators.src} " 
+      destdir="${instrumented}" 
+      includeAntRuntime="no" 
+      classpathref="class.path" 
+      classpath="${bin}" 
+      includes="${JINJECTOR_DECORATORS}" 
+      debug="true" 
+      source="1.3" target="1.3" 
+      deprecation="yes" 
+      failonerror="true" 
+      encoding="utf8">
+    </javac>
+    </target>
+ 
+<target name="instrument" depends="compile,compile.decorators,injectiontests" description="Instrument the J2ME code">
+
+        <java jar="${jinjector}" fork="true" failonerror="true">
+                <arg value="properties=jinjector.yourprojectname.properties"/>
+        </java>
+    
+</target>
+
+
+  <!-- Preverify -->
+  <target name="preverify" depends="instrument">
+    <mkdir dir="${preverified}" />
+    <exec executable="${preverifier}" failonerror="true" >
+      <arg line="-classpath '${classpath}'" />
+      <arg line="-d '${preverified}'" />
+      <arg line="-target CLDC1.1" />
+      <arg line="'${instrumented}'" />
+    </exec>
+  </target>
+
+  <!-- Jar/Jad -->
+  <target name="jar" depends="preverify" 
+    description="Build the jar and regenerate the jad">
+    <mkdir dir="${dist}" />
+    <copy file="${manifest}" tofile="${dist}/${manifest}" />
+    <copy file="${jadfile_original}" tofile="${jadfile_instrumented}" />
+    <jar 
+      jarfile="${jarfile_instrumented}" 
+      basedir="${preverified}" 
+      manifest="${manifest}" 
+      duplicate="fail">
+      <fileset dir="${instrumented}" excludes="**/*.class" />
+      
+    </jar>
+    <!--the original target "java" was creating problems with the double -jar 
+     parameters. this is just a workaround to that problem. -->
+    <exec executable="java" failonerror="true" >
+      <arg line="-jar '${JadGenerator}' --jar='${jarfile_instrumented}' --jad='${jadfile_instrumented}'" />
+    </exec>
+  </target>
+
+  <!-- Run using WTK -->
+  <target name="run-WTK" depends="jar" 
+    description="Run jad on Sun emulator">
+    <exec executable="${WTK}/bin/emulator">
+      <arg line="-Xdescriptor '${jadfile_instrumented}'" />
+      <arg line="-Xheapsize:16M" />
+      <arg line="-Xdevice:${emulator.device}" />
+      <arg line="-Xdomain:maximum" />
+      <!--<arg line="${midlet.class}" />-->
+    </exec>
+  </target>
+
+  <target name="clean" description="Remove build andant.project.name dist directories">
+    <delete dir="${bin}" />
+    <delete dir="${instrumented}" />
+    <delete dir="${preverified}" />
+    <delete dir="${dist}" />
+  </target>
+  
+</project>
