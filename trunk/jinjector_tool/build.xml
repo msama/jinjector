@@ -15,15 +15,14 @@ limitations under the License.
 
 <project name="JInjector" basedir="." default="main">
 
-    <property name="src.dir"     value="src"/>
-    <property name="test.dir"     value="test"/>
+    <property name="src.dir" value="src"/>
+    <property name="test.dir" value="test"/>
 
-    <property name="build.dir"   value="build"/>
-    <property name="classes.dir" value="${build.dir}/bin"/>
-    <property name="jar.dir"     value="${build.dir}/jar"/>
-    <property name="lib.dir"     value="lib"/>
-
-    <property name="main-class"  value="com.google.devtools.build.wireless.testing.java.injector.ClassBytecodeLoader"/>
+	<property name="classes.dir" value="bin"/>
+    <property name="jar.dir" value="jar"/>
+    <property name="lib.dir" value="lib"/>
+	
+    <property name="main-class" value="com.google.devtools.build.wireless.testing.java.injector.ClassBytecodeLoader"/>
 
     <path id="classpath">
       <fileset dir="${lib.dir}">
@@ -32,66 +31,63 @@ limitations under the License.
       </fileset>
     </path>
 
-
     <target name="clean">
-        <delete dir="${build.dir}"/>
+    	<delete dir="${classes.dir}"/>
+        <delete dir="${jar.dir}"/>
+    	<delete dir="${test.result.dir}"/>
     </target>
 
-    <target name="compile">
+    <target name="compile-src">
         <mkdir dir="${classes.dir}"/>
         <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/>
     </target>
 
-    <target name="test"  depends="compile">
+    <target name="compile-test"  depends="compile-src">
         <mkdir dir="${classes.dir}"/>
         <javac srcdir="${test.dir}" destdir="${classes.dir}" classpathref="classpath"/>
     </target>
 
-    <target name="jar" depends="compile">
+    <target name="jar" depends="compile-src">
         <mkdir dir="${jar.dir}"/>
-        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+        <jar destfile="${jar.dir}/${ant.project.name}.jar" 
+        	basedir="${classes.dir}">
             <manifest>
                 <attribute name="Main-Class" value="${main-class}"/>
             </manifest>
+        	<zipfileset src="${lib.dir}/google-collect-snapshot-20090211.jar" includes="**/*.class"/>
+        	<zipfileset src="${lib.dir}/asm-all-3.1.jar" includes="**/*.class"/>
         </jar>
+    	
     </target>
 
     <target name="run" depends="jar">
-        <java fork="true" classname="${main-class}">
-
+        <java fork="true" classname="${main-class}" failonerror="true">
             <classpath>
-                <path refid="classpath" />
                 <path location = "${jar.dir}/${ant.project.name}.jar"/>
             </classpath>
         </java>
     </target>
 
-<target name="runtests" depends="test">
-<junit printsummary="yes" haltonfailure="yes">
-  <classpath>
-    <pathelement location="${build.tests}"/>
-    <pathelement path="${java.class.path}"/>
-    <pathelement path="lib/junit.jar" />
-  </classpath>
-
-  <formatter type="plain"/>
-
-  <test name="jinjector_tests" haltonfailure="no" outfile="result">
-    <formatter type="xml"/>
-  </test>
-
-  <batchtest fork="yes">
-    <fileset dir="${test.dir}">
-      <include name="**/*Test*.java"/>
-      <exclude name="**/AllTests.java"/>
-    </fileset>
-  </batchtest>
-</junit>
-</target>
+	<target name="run-test" depends="compile-test">
+		<junit fork="no"
+			printsummary="yes"
+			showoutput="yes">
+			<classpath>
+				<path refid="classpath"/>
+				<path location="${classes.dir}/"/>
+			</classpath>
+			<batchtest fork="yes">
+			    <fileset dir="${test.dir}">
+			      <include name="**/*Test*.java"/>
+			      <exclude name="**/AllTests.java"/>
+			    </fileset>
+			</batchtest>
+		</junit>
+	</target>
 
     <target name="clean-build" depends="clean,jar"/>
 
-    <target name="main" depends="clean,jar,test"/>
+    <target name="main" depends="clean,jar,run-test"/>
 
 </project>
 
