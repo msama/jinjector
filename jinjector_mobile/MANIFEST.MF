@@ -1,6 +1,0 @@
-MIDlet-Jar-URL: TimeMIDlet.jar
-MIDlet-Name: TimeMIDlet Midlet Suite
-MIDlet-Vendor: JInjector Example
-MIDlet-Version: 1.0.0
-MicroEdition-Configuration: CLDC-1.1
-MicroEdition-Profile: MIDP-2.0
