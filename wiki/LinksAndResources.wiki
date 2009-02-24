@@ -15,7 +15,7 @@ Here are links to various web sites related to JInjector.
 
 [http://antenna.sourceforge.net/ Antenna] add in tasks to Ant for J2ME development.
 
-[http://asm.objectweb.org/ !ObjectWeb ASM] the library used to perform the code injection in JInjector.
+[http://asm.objectweb.org/ ObjectWeb ASM] the library used to perform the code injection in JInjector.
 
 [http://www.cobertura4j2me.org/ Cobertura for J2me] An alternative to JInjector for code coverage.
 
