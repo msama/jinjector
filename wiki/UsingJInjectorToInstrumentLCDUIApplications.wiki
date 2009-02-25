@@ -7,19 +7,26 @@ There are many examples of J2ME applications that use the
 This wiki page provides an overview of the steps required to automate tests using JInjector. Example tests are available from the [http://code.google.com/p/jinjector/downloads/list Downloads] section of this project.
 
 = Overview of the steps required =
+Once you've set up the project (see the Common Stuff required section here) you should be able to build and run the project - worth doing before you start creating any system tests.
+
+If you model your build scripts on those used in our examples (see the Downloads section and the directory structures in the jinjector_mobile folder) the injected tests belong in the test_to_inject folder, in a parallel package to your main application.
+
+JInjector uses a property file to control where (in the class structure) and what (e.g. the wrappers for LCDUI) to inject and include in the resulting jar file.
+
+The build process will then preverify the injected code and package it into a jar file. The jad descriptor will be updated with the new size of the jar file (compared to the one that would be created without instrumentation).
 
 _Note: these instructions are likely to change as we enhance the build and configuration scripts. Please visit this wiki from time to time to learn of the updates._
  
 == Common stuff required ==
+Here are the basic prerequisites required to instrument an LCDUI application.
   * Checkout the jinjector_mobile code: svn checkout http://jinjector.googlecode.com/svn/trunk/jinjector_mobile .
   * Download and copy j2meunit.jar into the lib folder
+  * Copy source files for the application into src and any resource files into res
   * Create a suitable build.xml based on the [http://code.google.com/p/jinjector/source/browse/trunk/jinjector_mobile/build-yourprojectname.xml template] and update the project name e.g. <project name="NetClientMIDlet" default="run-WTK" basedir="."> and machine specific settings e.g. the location of the WTK
-
-== Steps required to instrument an LCDUI application ==
-  * Copy source files into src and any res files into res
-  * Add build.xml and jinjector.properties
-  * Add MANIFEST.MF and projectname.jad to the root folder
-  * Edit the contents of MANIFEST.MF and projectname.jad
+  * Add a suitable MANIFEST.MF to the root folder - in the example build script the contents are also used to create the JAD file (they share a lot of properties).
 
 = Wrapping the code =
-_To be completed..._
+LCDUI libraries cannot be sub-classed, JInjector provides [http://code.google.com/p/jinjector/source/browse/#svn/trunk/jinjector_mobile/decorators_src/com/google/test/jinjector/j2me/wrapper wrappers] for the LCDUI classes which enable your tests to effectively query and interact with the wrappers as proxies for the original classes. 
+
+= Resources =
+The LinksAndResources wiki page includes a link to a video of a presentation on JInjector. The Downloads page includes links to presentations and other material that may be of interest.
