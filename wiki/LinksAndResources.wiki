@@ -7,6 +7,8 @@ Here are links to various web sites related to JInjector.
 
 = Details =
 
+Please join the jinjector group http://groups.google.com/group/jinjector?hl=en if you would like to ask questions, submit suggestions, and examples, etc.
+
 == Resources on JInjector ==
 [http://www.youtube.com/watch?v=B2v5jQ9NLVg GTAC Video on JInjector] We presented JInjector at Google's Test Automation Conference in Seattle in October 2008. The video is available online and may help provide an overview of our work.
 
