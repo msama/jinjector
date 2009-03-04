@@ -1,4 +1,5 @@
 #summary Links to external sites and resources about JInjector.
+#labels Phase-Implementation,Phase-Deploy,Phase-QA
 
 = Introduction =
 
@@ -15,6 +16,7 @@ Please join the jinjector group http://groups.google.com/group/jinjector?hl=en i
 == Software used by JInjector ==
 === Build tools ===
 We use [http://ant.apache.org/ Ant] to build the code.
+If you use the Eclipse IDE then [http://eclipseme.org/docs/index.html EclipseME] enables you to build, run and debug J2ME applications in the IDE.
 
 You might also be interested in using
 [http://antenna.sourceforge.net/ Antenna], an add in tasks to Ant which includes additional support for J2ME development.
@@ -41,4 +43,4 @@ See also [http://java.sun.com/javame/index.jsp Sun's homepage for Java ME] also 
 JInjector shares some common ideas with Robot ME, e.g. using ObjectWeb's ASM library to automate tests for J2ME applications. See http://www.cs.put.poznan.pl/dweiss/site/publications/slides/robotme-idss.pdf and http://www.mobiledeveloper.pl/files/AutomatedGUITestingOfMobileJavaApplications.pdf or search for RobotME to find other related material. 
 
 == General test automation articles ==
-[http://efforts.embedded.ufcg.edu.br/javame/?p=11 Using J2MEUnit and Eclipse] A good article on the subject. One additional tip, set the full package+class as the argument for j2meunit e.g. org.mydomain.mypackage.AllInjectedTestsSuite
+[http://efforts.embedded.ufcg.edu.br/javame/?p=11 Using J2MEUnit and Eclipse] A good article on the subject. One additional tip, set the full package+class as the argument for j2meunit e.g. `org.mydomain.mypackage.AllInjectedTestsSuite`
