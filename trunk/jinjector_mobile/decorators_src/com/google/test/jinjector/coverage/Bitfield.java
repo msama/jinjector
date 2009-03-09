@@ -90,7 +90,12 @@ public class Bitfield {
     InputStream is = null;
     try {
       is = Bitfield.class.getResourceAsStream(filename);
-      return getBitfieldsForLineCoverage(is);
+      if (is != null) {
+        return getBitfieldsForLineCoverage(is);
+      } else {
+        System.out.println("Unable to getResourceAsStream() for " + filename);
+        return null;
+      }
     } finally {
       /*
        *  Not safe to use IoUtil here. 
