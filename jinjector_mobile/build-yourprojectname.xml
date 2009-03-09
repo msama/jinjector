@@ -122,7 +122,7 @@
     </javac>
 </target>
 
-  <target name="compile.decorators" depends="compile" description="Compiles the decorators">
+  <target name="compile.decorators" depends="debug_ant" description="Compiles the decorators">
 <mkdir dir="${instrumented}"/>
     <javac srcdir="${decorators.src} " 
       destdir="${instrumented}" 
@@ -130,6 +130,7 @@
       classpathref="class.path" 
       classpath="${bin}" 
       includes="${JINJECTOR_DECORATORS}" 
+      excludes="com/google/test/jinjector/rim/**"
       debug="true" 
       source="1.3" target="1.3" 
       deprecation="yes" 
