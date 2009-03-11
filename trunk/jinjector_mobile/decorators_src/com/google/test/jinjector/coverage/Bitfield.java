@@ -16,6 +16,7 @@
 package com.google.test.jinjector.coverage;
 
 import com.google.test.jinjector.util.LineReader;
+import com.google.test.jinjector.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -106,8 +107,7 @@ public class Bitfield {
           is.close();
           is = null;
         } catch (IOException e) {
-          throw new RuntimeException(
-              "Caught IOException while closing stream " + e.getMessage());
+          Log.log(Bitfield.class, "Caught IOException while closing stream " + e.getMessage());
         }
       }
     }

@@ -99,7 +99,7 @@ public class J2meTestRunner extends RegressionTestRunner {
   protected void doRun(Test test) {
     setMidletToNestedTests(test);
     super.doRun(test);
-    requestCoverageReport(midlet, FILE_LOCALHOST);
+    // requestCoverageReport(midlet, FILE_LOCALHOST);
   }
   
   /**

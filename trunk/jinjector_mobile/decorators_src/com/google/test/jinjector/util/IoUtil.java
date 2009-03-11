@@ -49,7 +49,8 @@ public class IoUtil {
       }
     } catch (IOException e) {
       Log.log(IoUtil.class, 
-          "Caught IOException while closing closable " + e.getMessage());
+          "Caught IOException while closing closable for a Reader"
+          + e.getMessage() + ", " + e.toString());
     }
   }
   
@@ -66,7 +67,8 @@ public class IoUtil {
       }
     } catch (IOException e) {
       Log.log(IoUtil.class, 
-          "Caught IOException while closing closable " + e.getMessage());
+          "Caught IOException while closing closable for an InputStream "
+          + e.getMessage() + ", " + e.toString());
     }
   }
   
@@ -84,7 +86,8 @@ public class IoUtil {
       }
     } catch (IOException e) {
       Log.log(IoUtil.class, 
-          "Caught IOException while closing closable " + e.getMessage());
+          "Caught IOException while closing closable for an OutputStream "
+          + e.getMessage() + ", " + e.toString());
     }
   }
   
@@ -102,7 +105,8 @@ public class IoUtil {
       }
     } catch (IOException e) {
       Log.log(IoUtil.class, 
-          "Caught IOException while closing closable " + e.getMessage());
+          "Caught IOException while closing closable for a Writer "
+          + e.getMessage() + ", " + e.toString());
     }
   }
 
