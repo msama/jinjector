@@ -18,6 +18,10 @@ package com.google.test.jinjector.coverage;
 import com.google.test.jinjector.util.Log;
 
 import java.io.*;
+import java.util.Enumeration;
+
+import javax.microedition.io.Connector;
+import javax.microedition.io.file.FileConnection;
 import javax.microedition.io.file.FileSystemRegistry;
 
 /**
@@ -414,6 +418,40 @@ public class CoverageManager {
   }
 
   /**
+   * Returns a writable root folder where the coverage results can be stored.
+   *
+   * TODO This may need tweaking for various physical devices. The method
+   *      has been developed to cope with Nokia devices which have restricted
+   *      access to some folders or roots e.g. C:\ cannot be written to.
+   */
+  private static String getWriteableRoot() {
+    String prefix = "file://localhost/";
+
+    Enumeration rootEnum = FileSystemRegistry.listRoots();
+    while (rootEnum.hasMoreElements()) {
+      String root = (String) rootEnum.nextElement();
+      if (root.equalsIgnoreCase("C:/")) {
+        // Nokia doesn't let us write to the C:/ folder.
+        continue;
+      }
+
+      String fullPath = prefix + root;
+      try {
+        FileConnection fc = (FileConnection)Connector.open(fullPath);
+        boolean canWrite = fc.canWrite();
+        fc.close();
+        if (canWrite) {
+          return fullPath;
+        }
+      } catch (IOException ioe) {
+        System.out.println("IOException caught when trying to test if "
+            + fullPath + " is writable.");
+      }
+    }
+    return null;
+  }
+
+  /**
    * Writes the report for this instance.
    * 
    * TODO which will be able to stream
@@ -426,7 +464,7 @@ public class CoverageManager {
    */
   public static void writeReport(String path) {
     
-    path = "file://localhost/" + FileSystemRegistry.listRoots().nextElement();
+    path = getWriteableRoot();
     
     if (coverageCollectionState == STATE_NO_COVERAGE) {
       Log.log(CoverageManager.class.getName() , 
