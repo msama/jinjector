@@ -1,0 +1,21 @@
+#summary Advice when using Nokia's S40 emulator.
+#labels Phase-Deploy
+
+= Introduction =
+
+The 6th Edition of the S40 emulator provides some very useful debugging and tracing features. Here are a few notes on using it with Injected MIDlets. We're only scratching the surface here, please add comments and tips and we'll factor them into these notes.
+
+We used v1.0 of the 6th Edition of the S40 SDK, available from Nokia's web site try http://www.forum.nokia.com/info/sw.nokia.com/id/cc48f9a1-f5cf-447b-bdba-c4d41b3d05ce/Series_40_Platform_SDKs.html 
+
+= Details =
+
+== Loading a MIDlet into the emulator ==
+Start the emulator and answer any prompts until the UI of a Nokia homescreen is visible on screen. Use the File->Open menu and navigate to the dist folder for the instrumented MIDlet. Then pick the JAD file and load it. You should see the familiar prompts when installing a MIDlet on a real phone.
+
+Note: I'm assuming you've built and instrumented the application beforehand e.g. using the ant script with Sun's WTK and emulator.
+
+== Permissions ==
+Set the security to maximum or trusted in the preferences menu.
+
+== Logging ==
+The emulator allows you to log all sorts of things including network responses. By judiciously enabling various settings you may be able to learn more about how the instrumented code is executing.
