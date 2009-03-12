@@ -71,10 +71,10 @@ public class CoverageLcovWriter implements CoverageWriter {
     LineReader lineReader = null;
     FileConnection fileConnection = null;
     PrintStream printStream = null;
+    String lcovFilename = null;
 
     try {
-      final String lcovFilename =
-          path + coverageDataFile.getLCovOutputFile() + coverageDataFile.getRunId();
+      lcovFilename = path + coverageDataFile.getLCovOutputFile() + coverageDataFile.getRunId();
       fileConnection = FileConnectionUtil.createAndOpenFile(lcovFilename);
       // The file must be truncated to avoid bugs when overriding a bigger file
       fileConnection.truncate(0);
@@ -104,7 +104,7 @@ public class CoverageLcovWriter implements CoverageWriter {
     }
     
     writeCoverageReportDuration += System.currentTimeMillis();
-    Log.log(getClass().getName(), "LCOV file written in " +
+    Log.log(getClass().getName(), "LCOV file [" + lcovFilename + "] written in " +
         writeCoverageReportDuration + "ms");
   }
   
