@@ -1,4 +1,5 @@
 #summary How to instrument J2ME applications which use the LCDUI GUI library
+#labels Phase-Implementation,Phase-Deploy,Phase-QA
 
 = Introduction =
 There are many examples of J2ME applications that use the 
@@ -28,7 +29,7 @@ Here are the basic prerequisites required to instrument an LCDUI application.
 = Wrapping the code =
 LCDUI libraries cannot be sub-classed, JInjector provides [http://code.google.com/p/jinjector/source/browse/#svn/trunk/jinjector_mobile/decorators_src/com/google/test/jinjector/j2me/wrapper wrappers] for the LCDUI classes which enable your tests to effectively query and interact with the wrappers as proxies for the original classes. 
 
-See TimeMIDletExample for an example of an injected test for a simple web-based J2ME MIDlet.
+See [http://code.google.com/p/jinjector/wiki/TimeMIDletExample TimeMIDletExample] for an example of an injected test for a simple web-based J2ME MIDlet.
 
 = Resources =
 The LinksAndResources wiki page includes a link to a video of a presentation on JInjector. The Downloads page includes links to presentations and other material that may be of interest.
