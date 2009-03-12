@@ -163,21 +163,20 @@
   <target name="jar" depends="preverify" 
     description="Build the jar and regenerate the jad">
     <mkdir dir="${dist}" />
+    <delete file="${jadfile_instrumented}" quiet="true" />
     <copy file="${manifest}" tofile="${dist}/${manifest}" />
-    <copy file="${jadfile_original}" tofile="${jadfile_instrumented}" />
+    <copy file="${manifest}" tofile="${jadfile_instrumented}" />
     <jar 
       jarfile="${jarfile_instrumented}" 
       basedir="${preverified}" 
       manifest="${manifest}" 
       duplicate="fail">
       <fileset dir="${instrumented}" excludes="**/*.class" />
-      
+      <fileset dir="${decorators.src}" includes="**/*.png" />
     </jar>
-    <!--the original target "java" was creating problems with the double -jar 
-     parameters. this is just a workaround to that problem. -->
-    <exec executable="java" failonerror="true" >
-      <arg line="-jar '${JadGenerator}' --jar='${jarfile_instrumented}' --jad='${jadfile_instrumented}'" />
-    </exec>
+    <length file="${jarfile_instrumented}" property="jarsize" />
+    <echo message="MIDlet-Jar-Size: ${jarsize}${line.separator}" file="${jadfile_instrumented}" append="true" />
+    <echo message="MIDlet-1: ${ant.project.name},,example.${ant.project.name}${line.separator}" file="${jadfile_instrumented}" append="true" />
   </target>
 
   <!-- Run using WTK -->
