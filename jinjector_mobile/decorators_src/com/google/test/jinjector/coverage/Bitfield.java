@@ -114,7 +114,6 @@ public class Bitfield {
     
   }
   
-  
   public static Bitfield[] getBitfieldsForLineCoverage(InputStream is) {
     Vector bitfieldVector = new Vector(100);
     LineReader lr = null;
@@ -178,8 +177,7 @@ public class Bitfield {
           lr.close();
           lr = null;
         } catch (IOException e) {
-          throw new RuntimeException(
-              "Caught IOException while closing reader " + e.getMessage());
+          Log.log(Bitfield.class, "Caught IOException while closing reader " + e.getMessage());
         }
       }
     }

@@ -165,11 +165,14 @@ public class RegressionTestRunner extends TestRunner implements Runnable {
    *    {@link MIDlet} for J2ME or an instance of UiApplication for RIM.
    * @param path The root in which to save the file
    */
+  /*
+  Commented out to see if the code still builds
   public static void requestCoverageReport(Object application, String path) {
     if (application instanceof CoverageReporter) {
       CoverageManager.writeReport(path);
     }
   }
+  */
   
   /**
    * Runs all the tests sequentially, then write a full log and display 
