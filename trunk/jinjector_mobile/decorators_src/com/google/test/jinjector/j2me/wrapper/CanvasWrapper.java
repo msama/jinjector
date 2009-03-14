@@ -23,7 +23,6 @@ import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
-import javax.microedition.lcdui.Graphics;
 
 /**
  * Wrapper class for {@link Canvas}.
