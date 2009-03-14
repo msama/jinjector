@@ -137,8 +137,8 @@ implements DisplayableWrapper {
    * 
    * @see javax.microedition.lcdui.Canvas#keyPressed(int)
    */
-  public void keyPressed(int keyCode) {
-    super.keyPressed(keyCode);
+  public void invokeKeyPressed(int keyCode) {
+    keyPressed(keyCode);
   }
 
   /**
@@ -146,8 +146,8 @@ implements DisplayableWrapper {
    * 
    * @see javax.microedition.lcdui.Canvas#keyReleased(int)
    */
-  public void keyReleased(int keyCode) {
-    super.keyReleased(keyCode);
+  public void invokeKeyReleased(int keyCode) {
+    keyReleased(keyCode);
   }
 
   /**
@@ -155,8 +155,8 @@ implements DisplayableWrapper {
    * 
    * @see javax.microedition.lcdui.Canvas#keyRepeated(int)
    */
-  public void keyRepeated(int keyCode) {
-    super.keyRepeated(keyCode);
+  public void invokeKeyRepeated(int keyCode) {
+    keyRepeated(keyCode);
   }
 
   /**
@@ -164,8 +164,8 @@ implements DisplayableWrapper {
    * 
    * @see javax.microedition.lcdui.Canvas#pointerDragged(int, int)
    */
-  protected void pointerDragged(int x, int y) {
-    super.pointerDragged(x, y);
+  protected void invokePointerDragged(int x, int y) {
+    pointerDragged(x, y);
   }
 
   /**
@@ -173,8 +173,8 @@ implements DisplayableWrapper {
    * 
    * @see javax.microedition.lcdui.Canvas#pointerPressed(int, int)
    */
-  protected void pointerPressed(int x, int y) {
-    super.pointerPressed(x, y);
+  protected void invokePointerPressed(int x, int y) {
+    pointerPressed(x, y);
   }
 
   /**
@@ -182,8 +182,8 @@ implements DisplayableWrapper {
    * 
    * @see javax.microedition.lcdui.Canvas#pointerReleased(int, int)
    */
-  protected void pointerReleased(int x, int y) {
-    super.pointerReleased(x, y);
+  protected void invokePointerReleased(int x, int y) {
+    pointerReleased(x, y);
   }
   
 }
