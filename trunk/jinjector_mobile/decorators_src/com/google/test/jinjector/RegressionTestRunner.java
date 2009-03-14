@@ -15,12 +15,7 @@
 
 package com.google.test.jinjector;
 
-import com.google.test.jinjector.coverage.CoverageManager;
-import com.google.test.jinjector.coverage.CoverageReporter;
-
 import java.util.Enumeration;
-
-import javax.microedition.midlet.MIDlet;
 
 import j2meunit.framework.Test;
 import j2meunit.framework.TestCase;
