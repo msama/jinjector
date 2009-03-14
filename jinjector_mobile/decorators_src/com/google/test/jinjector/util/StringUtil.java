@@ -59,7 +59,7 @@ public class StringUtil {
       nextCursor = source.indexOf(separator, currentCursor);
       if (currentCursor == nextCursor) {
         // Two sequential separators, skip increment and continue.
-        currentCursor += separator.length();
+        currentCursor += separatorLength;
         continue;
       } else if (nextCursor == -1) {
         // No more separators, add the rest of the string and break.
@@ -70,7 +70,7 @@ public class StringUtil {
         // Add the string between the separators and increment the initial one.
         splittedStrings.addElement(
             source.substring(currentCursor, nextCursor));
-        currentCursor = nextCursor + separator.length();
+        currentCursor = nextCursor + separatorLength;
       }
     }
 
