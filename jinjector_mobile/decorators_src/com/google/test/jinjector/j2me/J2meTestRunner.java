@@ -37,11 +37,8 @@ import javax.microedition.midlet.MIDlet;
 public class J2meTestRunner extends RegressionTestRunner {
 
   /**
-   * Default path
-   * 
-   *  TODO: this should be assigned automatically.
+   * The instance of {@link MIDlet} under test.
    */
-  private static final String FILE_LOCALHOST = "file://localhost/";
   protected final MIDlet midlet;
   
   /**
@@ -99,7 +96,6 @@ public class J2meTestRunner extends RegressionTestRunner {
   protected void doRun(Test test) {
     setMidletToNestedTests(test);
     super.doRun(test);
-    // requestCoverageReport(midlet, FILE_LOCALHOST);
   }
   
   /**
