@@ -141,7 +141,7 @@ public abstract class CanvasWrapper extends Canvas
    * @see javax.microedition.lcdui.Canvas#keyPressed(int)
    */
   public void invokeKeyPressed(int keyCode) {
-    super.keyPressed(keyCode);
+    keyPressed(keyCode);
   }
 
   /**
@@ -150,7 +150,7 @@ public abstract class CanvasWrapper extends Canvas
    * @see javax.microedition.lcdui.Canvas#keyReleased(int)
    */
   public void invokeKeyReleased(int keyCode) {
-    super.keyReleased(keyCode);
+    keyReleased(keyCode);
   }
 
   /**
@@ -159,7 +159,7 @@ public abstract class CanvasWrapper extends Canvas
    * @see javax.microedition.lcdui.Canvas#keyRepeated(int)
    */
   public void invokeKeyRepeated(int keyCode) {
-    super.keyRepeated(keyCode);
+    keyRepeated(keyCode);
   }
 
   /**
@@ -168,7 +168,7 @@ public abstract class CanvasWrapper extends Canvas
    * @see javax.microedition.lcdui.Canvas#pointerDragged(int, int)
    */
   public void invokePointerDragged(int x, int y) {
-    super.pointerDragged(x, y);
+    pointerDragged(x, y);
   }
 
   /**
@@ -177,7 +177,7 @@ public abstract class CanvasWrapper extends Canvas
    * @see javax.microedition.lcdui.Canvas#pointerPressed(int, int)
    */
   public void invokePointerPressed(int x, int y) {
-    super.pointerPressed(x, y);
+    pointerPressed(x, y);
   }
 
   /**
@@ -186,7 +186,7 @@ public abstract class CanvasWrapper extends Canvas
    * @see javax.microedition.lcdui.Canvas#pointerReleased(int, int)
    */
   public void invokePointerReleased(int x, int y) {
-    super.pointerReleased(x, y);
+    pointerReleased(x, y);
   }
 
 }
