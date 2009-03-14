@@ -142,7 +142,7 @@ public abstract class CustomItemWrapper extends CustomItem implements ItemWrappe
    * @see CustomItem#keyPressed(int)
    */
   public void invokeKeyPressed(int keyCode) {
-    super.keyPressed(keyCode);
+    keyPressed(keyCode);
   }
 
   /**
@@ -151,8 +151,7 @@ public abstract class CustomItemWrapper extends CustomItem implements ItemWrappe
    * @see CustomItem#keyReleased(int)
    */
   public void invokeKeyReleased(int keyCode) {
-    // TODO Auto-generated method stub
-    super.keyReleased(keyCode);
+    keyReleased(keyCode);
   }
 
   /**
@@ -161,7 +160,7 @@ public abstract class CustomItemWrapper extends CustomItem implements ItemWrappe
    * @see CustomItem#keyRepeated(int)
    */
   public void invokeKeyRepeated(int keyCode) {
-    super.keyRepeated(keyCode);
+    keyRepeated(keyCode);
   }
 
   /**
@@ -170,7 +169,7 @@ public abstract class CustomItemWrapper extends CustomItem implements ItemWrappe
    * @see CustomItem#pointerDragged(int, int)
    */
   public void invokePointerDragged(int x, int y) {
-    super.pointerDragged(x, y);
+    pointerDragged(x, y);
   }
 
   /**
@@ -179,7 +178,7 @@ public abstract class CustomItemWrapper extends CustomItem implements ItemWrappe
    * @see CustomItem#pointerPressed(int, int)
    */
   public void invokePointerPressed(int x, int y) {
-    super.pointerPressed(x, y);
+    pointerPressed(x, y);
   }
 
   /**
@@ -188,6 +187,6 @@ public abstract class CustomItemWrapper extends CustomItem implements ItemWrappe
    * @see CustomItem#pointerReleased(int, int)
    */
   public void invokePointerReleased(int x, int y) {
-    super.pointerReleased(x, y);
+    pointerReleased(x, y);
   }
 }
