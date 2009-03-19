@@ -446,11 +446,16 @@ public class ClassBytecodeLoader {
       // Creates a ClassWriter which will write the chain in the new file.
       ClassWriter cw = new ClasspathBasedClassWriter(ClassWriter.COMPUTE_FRAMES,
           classManager);
-      
-      // Creates and computes the chain of adaptation.
-      cr.accept(createAdaptationChain(classManager, cw), 0);
-      b = cw.toByteArray();
-  
+      try {
+    	  // Creates and computes the chain of adaptation.
+    	  cr.accept(createAdaptationChain(classManager, cw), 0);
+    	  b = cw.toByteArray();
+      } catch (RuntimeException asmUnsupported) {
+        logger.severe("Instrumentation of file " + source + " FAILED, and " +
+          "skipped. This error is caused by an unsupported instruction in ASM. " +
+          "This is a temporary fix and patch is under development. See " +
+          "http://code.google.com/p/jinjector/issues/detail?id=1 for more details.");
+      }
       Files.overwrite(b, dest);
       instrumentedJar.addFile(removeBinaryFolderSubstring(source), b);
       
