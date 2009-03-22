@@ -442,20 +442,27 @@ public class ClassBytecodeLoader {
       byte b[] = Files.toByteArray(source);
       logger.info("Instrumenting file " + source.getAbsolutePath() + ".");
       ClassReader cr = new ClassReader(b);
-      
+
+      /*
+       * The instrumentation chain is created using
+       * <code>ClassWriter.COMPUTE_MAXS</code> which implies that the maximum
+       * frame size is computed automatically but the frame itself has to be
+       * computed manually. Computing the frame is only compulsory in Java
+       * 1.6 or above. The following code will work perfectly with any mobile
+       * application, but to use it with Java 1.6 it is necessary to recompute
+       * the frame in each instrumented method body.
+       * 
+       * TODO recompute the frame while visiting the method body.
+       */
+
       // Creates a ClassWriter which will write the chain in the new file.
-      ClassWriter cw = new ClasspathBasedClassWriter(ClassWriter.COMPUTE_FRAMES,
+      ClassWriter cw = new ClasspathBasedClassWriter(ClassWriter.COMPUTE_MAXS,
           classManager);
-      try {
-    	  // Creates and computes the chain of adaptation.
-    	  cr.accept(createAdaptationChain(classManager, cw), 0);
-    	  b = cw.toByteArray();
-      } catch (RuntimeException asmUnsupported) {
-        logger.severe("Instrumentation of file " + source + " FAILED, and " +
-          "skipped. This error is caused by an unsupported instruction in ASM. " +
-          "This is a temporary fix and patch is under development. See " +
-          "http://code.google.com/p/jinjector/issues/detail?id=1 for more details.");
-      }
+
+	  // Creates and computes the chain of adaptation.
+	  cr.accept(createAdaptationChain(classManager, cw), 0);
+	  b = cw.toByteArray();
+
       Files.overwrite(b, dest);
       instrumentedJar.addFile(removeBinaryFolderSubstring(source), b);
       
