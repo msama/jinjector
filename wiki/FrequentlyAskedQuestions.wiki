@@ -1,6 +1,7 @@
 #summary One-sentence summary of this page.
+#labels Phase-Support,Phase-QA
 
-= FAQ - FrequentlyAskedQuestions =
+= FAQ - Frequently Asked Questions =
 
 This is a collection of all the questions we have been receiving.
 
