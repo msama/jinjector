@@ -6,11 +6,11 @@
 This is a collection of all the questions we have been receiving.
 
 
-=== Why Ant reports the following error: "Buildfile: build.xml does not exist!"? ===
+=== Why does Ant report the following error: "Buildfile: build.xml does not exist!"? ===
 
 No target file has been specified. use "ant -f <build-filename.xml>"
 
-=== Why the collected coverage file coverage.lcov is empty? ===
+=== Why does the collected coverage file coverage.lcov is empty? ===
 
 This happens when no class has been included in the coverage list. In the properties file, under the coverage loadable edit the following property by inserting your package name:
 
