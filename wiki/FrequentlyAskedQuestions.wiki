@@ -1,0 +1,59 @@
+#summary One-sentence summary of this page.
+
+= FAQ - FrequentlyAskedQuestions =
+
+This is a collection of all the questions we have been receiving.
+
+
+=== Why Ant reports the following error: "Buildfile: build.xml does not exist!"? ===
+
+No target file has been specified. use "ant -f <build-filename.xml>"
+
+=== Why the collected coverage file coverage.lcov is empty? ===
+
+This happens when no class has been included in the coverage list. In the properties file, under the coverage loadable edit the following property by inserting your package name:
+
+{{{
+coverageInclusionList=+org/package/subpackagetoinclude 
+}}}
+
+You can use "+" and "-" to include or exclude packages:
+
+{{{
+coverageInclusionList=+org/package/toinclude -org/package/toexclude
+}}}
+
+=== What is a Loadable and how do I create one? ===
+
+A Loadable
+http://code.google.com/p/jinjector/source/browse/trunk/jinjector_tool/src/com/google/devtools/build/wireless/testing/java/injector/Loadable.java
+is a component which may be loaded at runtime by JInjector to
+instrument your code.
+
+Loadables need to be specified in the properties file
+http://code.google.com/p/jinjector/source/browse/trunk/jinjector_mobile/jinjector-default.properties
+and JInjector loads and apply them in the same order as they are
+specified.
+
+To implement a Loadable you need to consider 3 different aspects:
+1) What your component should do BEFORE the instrumentation. This are
+usually initializations or actions which strictly need to be performed
+before any other instrumentations. This kind of pre-operations are not
+very common and depends in what are you trying to achieve. An example
+could be initializing a collection for counting or measuring the
+number of instrumented classes, or the number of invocation of a
+certain method.
+2) The instrumentation itself, which usually consist in extending a
+ClassAdapter and a MethodAdapter which are two visitors one for the
+class structure one for the method body. See http://asm.objectweb.org/
+for a detailed tutorial.
+3) What your component should do at the end of the instrumentation. A
+sort of final operation after all the other classes have been
+instrumented.
+
+Loadables can read properties directly from the properties file.
+See
+http://code.google.com/p/jinjector/source/browse/trunk/jinjector_tool/src/com/google/devtools/build/wireless/testing/java/injector/ReplayLoadable.java
+which is a good example, simple and clear or
+http://code.google.com/p/jinjector/source/browse/trunk/jinjector_tool/src/com/google/devtools/build/wireless/testing/java/injector/coverage/CoverageLoadable.java
+which is a more complete example. 
