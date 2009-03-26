@@ -50,3 +50,12 @@ which is a more complete example.
 
 === Which version of the JDK do we need to use? ===
 JInjector is written using features from Java 6 so you need version 6 (or newer) of the JDK. We've tested it with Open JDK and with Sun's JDK.
+
+
+=== Why does genhtml cannot find my classes? ===
+
+Genhtml requires each single java file to be listed using an absolute path or a path relative from where the command is executed. JInjector guess the java file name and location using class and package name (and debug informations). However JInjector cannot guess the position of your java class in your file system.
+
+If the source files that you have included for coverage comes from the same directory you can run genhtml from that directory and it will work.
+
+If your source files comes from multiple directory (e.g. _src_ and _tests_) then it will be necessary to pre-process the lcov file and replacing the guessed path with the real one. This can be done with a shell script.
