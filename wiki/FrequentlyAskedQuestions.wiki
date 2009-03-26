@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Answers to some of your questions:)
 #labels Phase-Support,Phase-QA
 
 = FAQ - Frequently Asked Questions =
@@ -37,20 +37,9 @@ and JInjector loads and apply them in the same order as they are
 specified.
 
 To implement a Loadable you need to consider 3 different aspects:
-1) What your component should do BEFORE the instrumentation. This are
-usually initializations or actions which strictly need to be performed
-before any other instrumentations. This kind of pre-operations are not
-very common and depends in what are you trying to achieve. An example
-could be initializing a collection for counting or measuring the
-number of instrumented classes, or the number of invocation of a
-certain method.
-2) The instrumentation itself, which usually consist in extending a
-ClassAdapter and a MethodAdapter which are two visitors one for the
-class structure one for the method body. See http://asm.objectweb.org/
-for a detailed tutorial.
-3) What your component should do at the end of the instrumentation. A
-sort of final operation after all the other classes have been
-instrumented.
+  # What your component should do BEFORE the instrumentation. This are usually initializations or actions which strictly need to be performed before any other instrumentations. This kind of pre-operations are not very common and depends in what are you trying to achieve. An example could be initializing a collection for counting or measuring the number of instrumented classes, or the number of invocation of a certain method.
+  # The instrumentation itself, which usually consist in extending a ClassAdapter and a MethodAdapter which are two visitors one for the class structure one for the method body. See http://asm.objectweb.org/ for a detailed tutorial.
+  # What your component should do at the end of the instrumentation. A sort of final operation after all the other classes have been instrumented.
 
 Loadables can read properties directly from the properties file.
 See
@@ -58,3 +47,6 @@ http://code.google.com/p/jinjector/source/browse/trunk/jinjector_tool/src/com/go
 which is a good example, simple and clear or
 http://code.google.com/p/jinjector/source/browse/trunk/jinjector_tool/src/com/google/devtools/build/wireless/testing/java/injector/coverage/CoverageLoadable.java
 which is a more complete example. 
+
+=== Which version of the JDK do we need to use? ===
+JInjector is written using features from Java 6 so you need version 6 (or newer) of the JDK. We've tested it with Open JDK and with Sun's JDK.
