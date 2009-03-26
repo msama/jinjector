@@ -106,7 +106,7 @@ public class CoverageLoadable extends Loadable {
     coverage = CoverageMode.valueOf(
         properties.getProperty(PROPERTY_COVERAGE_MODE));
     coverageInclusionList = StringUtil.split(
-        properties.getProperty(PROPERTY_COVERAGE_INCLUSION_LIST), ";");
+        properties.getProperty(PROPERTY_COVERAGE_INCLUSION_LIST), " ;:,");
     lineCoverageOutputFilename = properties.getProperty(
         PROPERTY_LINECOVERAGE_OUTPUT_FILE);
     
