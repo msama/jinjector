@@ -66,13 +66,13 @@ public class CoverageLcovWriter implements CoverageWriter {
   * Writes a full report in emma style.
   */
   public void writeFullReport(String path) throws IOException {
-    long writeCoverageReportDuration = - System.currentTimeMillis();
     InputStream inputStream = null;
     LineReader lineReader = null;
     FileConnection fileConnection = null;
     PrintStream printStream = null;
 
     try {
+      long writeCoverageReportDuration = - System.currentTimeMillis();
       final String lcovFilename =
           path + coverageDataFile.getLCovOutputFile() + coverageDataFile.getRunId();
       fileConnection = FileConnectionUtil.createAndOpenFile(lcovFilename);
@@ -95,17 +95,17 @@ public class CoverageLcovWriter implements CoverageWriter {
         }
         lineParser.parseLineAndWriteLineCoverage(line);
       }
-
+      
+      // Log that the coverage has been collected succesfully.
+      writeCoverageReportDuration += System.currentTimeMillis();
+      Log.log(getClass().getName(), "LCOV file [" + lcovFilename +
+          "] written in " + writeCoverageReportDuration + "ms");
     } finally {
       IoUtil.closeCloseable(lineReader);
       IoUtil.closeCloseable(inputStream);
       IoUtil.closeCloseable(printStream);
       FileConnectionUtil.close(fileConnection);
     }
-
-    writeCoverageReportDuration += System.currentTimeMillis();
-    Log.log(getClass().getName(), "LCOV file [" + lcovFilename + "] written in " +
-        writeCoverageReportDuration + "ms");
   }
 
   /**
