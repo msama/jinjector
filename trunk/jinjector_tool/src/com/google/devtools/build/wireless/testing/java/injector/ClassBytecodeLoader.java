@@ -440,38 +440,29 @@ public class ClassBytecodeLoader {
     try {
       // Creates a classreader which will start the adaptation chain.            
       byte b[] = Files.toByteArray(source);
+      
+      
+      // Creates and computes the chain of adaptation.
       logger.info("Instrumenting file " + source.getAbsolutePath() + ".");
       ClassReader cr = new ClassReader(b);
-
-      /*
-       * The instrumentation chain is created using
-       * <code>ClassWriter.COMPUTE_MAXS</code> which implies that the maximum
-       * frame size is computed automatically but the frame itself has to be
-       * computed manually. Computing the frame is only compulsory in Java
-       * 1.6 or above. The following code will work perfectly with any mobile
-       * application, but to use it with Java 1.6 it is necessary to recompute
-       * the frame in each instrumented method body.
-       * 
-       * TODO recompute the frame while visiting the method body.
-       */
-
+      
       // Creates a ClassWriter which will write the chain in the new file.
       ClassWriter cw = new ClasspathBasedClassWriter(ClassWriter.COMPUTE_MAXS,
           classManager);
-
-	  // Creates and computes the chain of adaptation.
-	  cr.accept(createAdaptationChain(classManager, cw), 0);
-	  b = cw.toByteArray();
-
+      
+      cr.accept(createAdaptationChain(classManager, cw), 0);
+      b = cw.toByteArray();
+      
       Files.overwrite(b, dest);
       instrumentedJar.addFile(removeBinaryFolderSubstring(source), b);
       
+      
     } catch (IOException e) {
       logger.severe("An exception " + e.getMessage() + 
-          " occurred while instrument file " + source + 
+          " occurred while instrumenting file " + source + 
           " and saving it in " + dest + ".");
-      throw new RuntimeException("An exception occurred while instrument file " 
-          + source + " and saving it in " + dest + ".", e);
+      throw new RuntimeException("An exception occurred while instrumenting " +
+          "file " + source + " and saving it in " + dest + ".", e);
     }
   }
 
@@ -493,7 +484,7 @@ public class ClassBytecodeLoader {
       logger.severe("An exception " + e.getMessage() + " occurred while copying "
           + source + " to " + dest + ".");
       throw new RuntimeException("Execution aborted because it was " +
-      		"impossible to copy " + source + " to " + dest, e);
+          "impossible to copy " + source + " to " + dest, e);
     }
   }
 

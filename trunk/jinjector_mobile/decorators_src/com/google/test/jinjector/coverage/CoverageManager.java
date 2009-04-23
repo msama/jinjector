@@ -15,6 +15,7 @@
 
 package com.google.test.jinjector.coverage;
 
+import com.google.test.jinjector.util.FileConnectionUtil;
 import com.google.test.jinjector.util.Log;
 
 import java.io.*;
@@ -419,38 +420,55 @@ public class CoverageManager {
 
   /**
    * Returns a writable root folder where the coverage results can be stored.
+   * 
+   * <p>The actual path will be written to the log. It may depend on the device
+   * and whether it has a memory card installed.
    *
-   * TODO This may need tweaking for various physical devices. The method
+   * TODO: This may need tweaking for various physical devices. The method
    *      has been developed to cope with Nokia devices which have restricted
    *      access to some folders or roots e.g. C:\ cannot be written to.
    */
-  private static String getWriteableRoot() {
+  protected static String getWriteableRoot() {
     String prefix = "file://localhost/";
 
     Enumeration rootEnum = FileSystemRegistry.listRoots();
     while (rootEnum.hasMoreElements()) {
       String root = (String) rootEnum.nextElement();
-      if (root.equalsIgnoreCase("C:/")) {
+
+      if (root.equalsIgnoreCase("C:/") || root.indexOf("memory") != -1) {
         // Nokia doesn't let us write to the C:/ folder.
+        Log.log(CoverageManager.class.getName(), "Skipping Root: " + root);
         continue;
-      }
-
-      String fullPath = prefix + root;
-      try {
-        FileConnection fc = (FileConnection)Connector.open(fullPath);
-        boolean canWrite = fc.canWrite();
-        fc.close();
-        if (canWrite) {
+      } else {
+        Log.log(CoverageManager.class.getName(), "Trying Root: " + root);
+        String fullPath = prefix + root;
+        try {
+          FileConnection fc = (FileConnection)Connector.open(fullPath +
+              "dummy.txt", Connector.READ_WRITE);
+          if (!fc.exists()) {
+            fc.create();
+          }
+          fc.close();
+          Log.log(CoverageManager.class.getName(), "Using: " + fullPath);
           return fullPath;
+        } catch (IOException ioe) {
+          Log.log(CoverageManager.class.getName(),
+              "IOException caught when trying to test if we can write to: "
+              + fullPath);
         }
-      } catch (IOException ioe) {
-        System.out.println("IOException caught when trying to test if "
-            + fullPath + " is writable.");
-      }
+     }
+    }  // end while
+    
+    // Attempt to write in a known directory
+    String photos = "fileconn.dir.photos";
+    String path = System.getProperty(photos);
+    if (path != null) {
+      return path;
     }
-    return null;
+    throw new IllegalStateException(
+        "No writable folder found for coverage data.");
   }
-
+  
   /**
    * Writes the report for this instance.
    * 

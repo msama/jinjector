@@ -184,6 +184,14 @@ public enum Platform {
     public String getTestRunnerClassName() {
       return J2meClassNames.J2ME_PKG + "J2meTestRunner";
     }
+
+    /**
+     * Return the filesystem's root for J2ME applications. 
+     */
+    @Override
+    public String getFileConnectionPrefix() {
+      return J2meClassNames.FILESYSTEM_ROOT;
+    }
   }, 
   
   /**
@@ -268,7 +276,7 @@ public enum Platform {
     @Override
     public boolean getPlatformSpecificCoverageCollectionClass
         (String className, String superName) {
-      // TODO (swoodward) This is a temporary implementation until the 
+      // TODO: This is a temporary implementation until the 
       // enumerations are refactored as per the class-level comments
       return RimClassNames.BB_TEST_RUNNER_END_TEST.equals(className);
     }
@@ -300,6 +308,14 @@ public enum Platform {
     @Override
     public String getTestRunnerClassName() {
       return RimClassNames.RIM_PKG + "RimTestRunner"; 
+    }
+
+    /**
+     * Returns the filesystem's root for RIM which is the same as for J2ME.
+     */
+    @Override
+    public String getFileConnectionPrefix() {
+      return J2meClassNames.FILESYSTEM_ROOT;
     }
   };
 
@@ -425,4 +441,11 @@ public enum Platform {
    * @return The name of the test runner class.
    */
   public abstract String getTestRunnerClassName();
+  
+  /**
+   * Gets the root of the filesystem of the given platform.
+   * 
+   * @return the filesystem's root.
+   */
+  public abstract String getFileConnectionPrefix();
 }

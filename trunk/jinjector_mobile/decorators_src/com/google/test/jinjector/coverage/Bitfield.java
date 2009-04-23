@@ -91,12 +91,7 @@ public class Bitfield {
     InputStream is = null;
     try {
       is = Bitfield.class.getResourceAsStream(filename);
-      if (is != null) {
-        return getBitfieldsForLineCoverage(is);
-      } else {
-        System.out.println("Unable to getResourceAsStream() for " + filename);
-        return null;
-      }
+      return getBitfieldsForLineCoverage(is);
     } finally {
       /*
        *  Not safe to use IoUtil here. 
@@ -107,14 +102,18 @@ public class Bitfield {
           is.close();
           is = null;
         } catch (IOException e) {
-          Log.log(Bitfield.class, "Caught IOException while closing stream " + e.getMessage());
+          Log.log(Bitfield.class, "Caught IOException while closing stream: " +
+              e.getMessage() + " Closing quietly.");
         }
       }
-    }
-    
+    }  
   }
   
   public static Bitfield[] getBitfieldsForLineCoverage(InputStream is) {
+    if (is == null) {
+      throw new IllegalArgumentException("The input stream cannot be null.");
+    }
+    
     Vector bitfieldVector = new Vector(100);
     LineReader lr = null;
     try {
@@ -177,7 +176,8 @@ public class Bitfield {
           lr.close();
           lr = null;
         } catch (IOException e) {
-          Log.log(Bitfield.class, "Caught IOException while closing reader " + e.getMessage());
+          Log.log(Bitfield.class, "Caught IOException while closing reader " +
+              e.getMessage() + " Closing quietly.");
         }
       }
     }
