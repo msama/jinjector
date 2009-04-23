@@ -49,15 +49,15 @@ LCOV_FILE=$1
 LCOV_FILE_WITH_FIXED_FILEPATH="fixed-$LCOV_FILE"
 
 # The project folder root. Usually "." would work.
-PROJECT_FOLDER=$3
+PROJECT_FOLDER=$2
 
 # The location in which to save the generated coverage
-DESTINATION_FOLDER=$4
+DESTINATION_FOLDER=$3
 
 # The source folders containing the files of which the report should be
 # generated. All the other files will be excluded.
 # The default value is: "src test proto genfiles"
-INCLUDED_SOURCE_FOLDERS=$5
+INCLUDED_SOURCE_FOLDERS=$4
 
 echo "genhtml.sh patching: $LCOV_FILE in $LCOV_FILE_WITH_FIXED_FILEPATH" 
 echo "Including source folders: $INCLUDED_SOURCE_FOLDERS"
