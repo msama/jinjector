@@ -22,7 +22,6 @@ import com.google.devtools.build.wireless.testing.java.injector.ClassNames;
 import com.google.devtools.build.wireless.testing.java.injector.InjectorMethodAdapter;
 import com.google.devtools.build.wireless.testing.java.injector.ManagedClassAdapter;
 import com.google.devtools.build.wireless.testing.java.injector.Platform;
-import com.google.devtools.build.wireless.testing.java.injector.j2me.J2meClassNames;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodAdapter;
@@ -158,6 +157,12 @@ public class GenerateCoverageClassAdapter extends ManagedClassAdapter {
       } else {
         mv = new StartOfMethodCoverageReportMethodAdapter(mv);
       }
+    } else if (Platform.J2ME == targetPlatform) {
+      /* In MIDP if {@link MIDlet#notifyDestroyed()} is invoked directly then 
+       * coverage is not collected. This is a workaround which invokes the
+       * coverage collection directly.
+       */ 
+      mv = new ReportBeforeDestroyingMethodAdapter(mv);
     }
     return mv;
   }
@@ -203,7 +208,7 @@ public class GenerateCoverageClassAdapter extends ManagedClassAdapter {
     @Override
     public void visitInsn(int opcode) {
       if (InjectorMethodAdapter.isReturnInstruction(opcode)) {
-        mv.visitLdcInsn(J2meClassNames.FILESYSTEM_ROOT);
+        mv.visitLdcInsn(targetPlatform.getFileConnectionPrefix());
         mv.visitMethodInsn(Opcodes.INVOKESTATIC, 
             CoverageClassNames.COVERAGE_MANAGER, "writeReport", "(L" + 
             ClassNames.JAVA_LANG_STRING + ";)V");
@@ -251,11 +256,38 @@ public class GenerateCoverageClassAdapter extends ManagedClassAdapter {
      */
     @Override
     public void visitCode() {
-      mv.visitLdcInsn(J2meClassNames.FILESYSTEM_ROOT);
+      mv.visitLdcInsn(targetPlatform.getFileConnectionPrefix());
       mv.visitMethodInsn(Opcodes.INVOKESTATIC, 
           CoverageClassNames.COVERAGE_MANAGER, "writeReport", "(L" + 
           ClassNames.JAVA_LANG_STRING + ";)V");
       mv.visitCode();
+    }
+  }
+  
+  class ReportBeforeDestroyingMethodAdapter extends MethodAdapter {
+
+    /**
+     * Constructor from the superclass.
+     * @param mv the nested MethodVisitor
+     */
+    public ReportBeforeDestroyingMethodAdapter(MethodVisitor mv) {
+      super(mv);
+    }
+    
+    /**
+     * Force a coverage collection if <code>MIDlet.notifyDestroyed()</code>
+     * is invoked directly.
+     */
+    @Override
+    public void visitMethodInsn(int opcode, String owner, String name,
+        String desc) {
+      if (ClassNames.MIDLET.equals(owner) && "notifyDestroyed".equals(name)) {
+        mv.visitLdcInsn(targetPlatform.getFileConnectionPrefix());
+        mv.visitMethodInsn(Opcodes.INVOKESTATIC, 
+            CoverageClassNames.COVERAGE_MANAGER, "writeReport", "(L" + 
+            ClassNames.JAVA_LANG_STRING + ";)V");
+      }
+      mv.visitMethodInsn(opcode, owner, name, desc);
     }
   }
 }

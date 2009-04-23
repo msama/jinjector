@@ -82,7 +82,7 @@ implements DisplayableWrapper {
    * Sets a {@link CommandListener} into the nested {@link GameCanvas} and 
    * stores it into the local collection.
    * 
-   * @param l The {@link CommandListener} to be set.
+   * @param listener The {@link CommandListener} to be set.
    * @see GameCanvas#setCommandListener(CommandListener)
    */
   public void setCommandListener(CommandListener listener) {

@@ -135,7 +135,8 @@ public class CoverageStatisticContainer {
   private final List<String> files = new ArrayList<String>();
 
   /** 
-   * List of instrumented lines for each file. 
+   * List of instrumented lines for each file keeping the exact order in
+   * which they have been inserted. 
    */
   private final LinkedListMultimap<String, Integer> instrumentedLines =
       new LinkedListMultimap<String, Integer>();

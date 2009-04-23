@@ -17,11 +17,7 @@ package com.google.test.jinjector;
 
 import java.util.Enumeration;
 
-import j2meunit.framework.Test;
-import j2meunit.framework.TestCase;
-import j2meunit.framework.TestFailure;
-import j2meunit.framework.TestResult;
-import j2meunit.framework.TestSuite;
+import j2meunit.framework.*;
 import j2meunit.textui.TestRunner;
 import j2meunit.util.StringUtil;
 
@@ -127,47 +123,6 @@ public class RegressionTestRunner extends TestRunner implements Runnable {
       displayStrategy.displayResult(result);
     }
   }
-  
-  /**
-   * Writes a coverage report for the current application.
-   * 
-   * <p>Coverage is only collected when the application has been instrumented 
-   * and when it implements the CoverageReporter interface.
-   * 
-   * <p> If coverage has been injected at instrumentation time, there must be 
-   * an object flagged as {@link CoverageReporter}. If that object exists, 
-   * then coverage information can be collected just by invoking the 
-   * convenience method {@link CoverageManager#writeReport(String)}.
-   * 
-   * <p> For each platform the {@link CoverageReporter} changes. In general it 
-   * will be the class containing the application logic, eg. MIDlet for MIDP, 
-   * or the class containing the main method for RIM.
-   * 
-   * <p> This method is supposed to be invoked ONLY if coverage report has to 
-   * be forced outside of the normal life cycle of the application. 
-   * This happens when coverage are needed in a certain point of the execution 
-   * which is different of the exit point. 
-   * 
-   * <p> In MIDP if {@link MIDlet#destroyApp(boolean)} is not invoked then 
-   * coverage is not collected and this method must be called instead.
-   * 
-   * TODO: this implementation is working but it is weird. A better design 
-   *     would extend the Strategy pattern implemented in test runner and allow
-   *     multiple strategies, and add an implementation which will save the 
-   *     coverage.
-   * 
-   * @param application the current application. This is an instance of 
-   *    {@link MIDlet} for J2ME or an instance of UiApplication for RIM.
-   * @param path The root in which to save the file
-   */
-  /*
-  Commented out to see if the code still builds
-  public static void requestCoverageReport(Object application, String path) {
-    if (application instanceof CoverageReporter) {
-      CoverageManager.writeReport(path);
-    }
-  }
-  */
   
   /**
    * Runs all the tests sequentially, then write a full log and display 

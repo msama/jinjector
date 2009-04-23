@@ -18,6 +18,8 @@ package com.google.test.jinjector.j2me;
 
 import com.google.test.jinjector.RegressionTestRunner;
 import com.google.test.jinjector.ResultDisplayerStrategy;
+import com.google.test.jinjector.coverage.CoverageManager;
+import com.google.test.jinjector.coverage.CoverageReporter;
 import com.google.test.jinjector.util.Log;
 
 import j2meunit.framework.Test;
@@ -36,9 +38,6 @@ import javax.microedition.midlet.MIDlet;
  */
 public class J2meTestRunner extends RegressionTestRunner {
 
-  /**
-   * The instance of {@link MIDlet} under test.
-   */
   protected final MIDlet midlet;
   
   /**
@@ -89,8 +88,6 @@ public class J2meTestRunner extends RegressionTestRunner {
   /**
    * Set a reference to the current MIDlet to all the tests.
    * 
-   * TODO: put the root as a parameter!!!!!
-   * 
    * @see com.google.test.jinjector.RegressionTestRunner#doRun(j2meunit.framework.Test)
    */
   protected void doRun(Test test) {
@@ -133,6 +130,9 @@ public class J2meTestRunner extends RegressionTestRunner {
     super.run();
     if (needToExit((TestSuite)this.suite)) {
       Log.log(J2meTestRunner.class, "Exit requested");
+      if (midlet instanceof CoverageReporter) {
+        CoverageManager.writeReport("file://localhost/");
+      }
       midlet.notifyDestroyed();
     }
   }

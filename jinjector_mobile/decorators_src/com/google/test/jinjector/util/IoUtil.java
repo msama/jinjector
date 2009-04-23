@@ -49,8 +49,7 @@ public class IoUtil {
       }
     } catch (IOException e) {
       Log.log(IoUtil.class, 
-          "Caught IOException while closing a Reader"
-          + e.getMessage() + ", " + e.toString());
+          "Caught IOException while closing a Reader " + e.getMessage());
     }
   }
   
@@ -67,8 +66,7 @@ public class IoUtil {
       }
     } catch (IOException e) {
       Log.log(IoUtil.class, 
-          "Caught IOException while closing an InputStream "
-          + e.getMessage() + ", " + e.toString());
+          "Caught IOException while closing an InputStream " + e.getMessage());
     }
   }
   
@@ -86,8 +84,7 @@ public class IoUtil {
       }
     } catch (IOException e) {
       Log.log(IoUtil.class, 
-          "Caught IOException while closing an OutputStream "
-          + e.getMessage() + ", " + e.toString());
+          "Caught IOException while closing an OutputStream " + e.getMessage());
     }
   }
   
@@ -105,8 +102,7 @@ public class IoUtil {
       }
     } catch (IOException e) {
       Log.log(IoUtil.class, 
-          "Caught IOException while closing a Writer "
-          + e.getMessage() + ", " + e.toString());
+          "Caught IOException while closing a Writer " + e.getMessage());
     }
   }
 

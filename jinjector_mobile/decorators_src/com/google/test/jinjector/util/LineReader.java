@@ -137,4 +137,15 @@ public class LineReader extends InputStreamReader {
   public boolean markSupported() {
     return false;
   }
+  
+  /**
+   * Nullifies all internal buffers and closes the stream.
+   * 
+   * @see java.io.InputStreamReader#close()
+   */
+  public void close() throws IOException {
+    buffer = null;
+    ch = null;
+    super.close();
+  }
 }
