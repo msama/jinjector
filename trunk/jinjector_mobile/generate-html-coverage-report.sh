@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright 2009 Google Inc.
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,6 +42,8 @@
 # the LCOV toolkit.
 # See http://ltp.sourceforge.net/coverage/lcov.php for details.
 # -----------------------------------------------------------------------------
+set -e # Exit if any command gives a non-zero return code 
+set -u # Exit if you reference a non-initialized variable 
 
 # The LCOV file in which coverage has been collected
 LCOV_FILE=$1
@@ -56,7 +59,7 @@ DESTINATION_FOLDER=$3
 
 # The source folders containing the files of which the report should be
 # generated. All the other files will be excluded.
-# The default value is: "src test proto genfiles"
+# The default value is: "src test"
 INCLUDED_SOURCE_FOLDERS=$4
 
 echo "genhtml.sh patching: $LCOV_FILE in $LCOV_FILE_WITH_FIXED_FILEPATH" 
