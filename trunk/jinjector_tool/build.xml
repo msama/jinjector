@@ -84,10 +84,19 @@ limitations under the License.
 			</batchtest>
 		</junit>
 	</target>
+	
+  <target name="jar-src" depends=""
+  	  description="Creates a jar files containing all the source and resources.">
+    <mkdir dir="${jar.dir}"/>
+    <jar destfile="${jar.dir}/${ant.project.name}-src.jar" 
+        basedir="${src.dir}">
+    	<fileset dir="${src.dir}"/>
+    </jar>
+  </target>
 
-    <target name="clean-build" depends="clean,jar"/>
+  <target name="clean-build" depends="clean,jar"/>
 
-    <target name="main" depends="clean,jar,run-test"/>
+  <target name="main" depends="clean,jar,run-test"/>
 
 </project>
 
