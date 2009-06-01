@@ -13,6 +13,8 @@ Please join the jinjector group http://groups.google.com/group/jinjector?hl=en i
 == Resources on JInjector ==
 [http://www.youtube.com/watch?v=B2v5jQ9NLVg GTAC Video on JInjector] We presented JInjector at Google's Test Automation Conference in Seattle in October 2008. The video is available online and may help provide an overview of our work.
 
+http://portal.acm.org/citation.cfm?id=1514411.1514424 is the official link to the paper presented at HotMobile 2009. A copy will shortly be available for personal use from the Downloads section of this site (once I've reinstalled the software to generate the document from the latex source text files).
+
 == Software used by JInjector ==
 === Build tools ===
 We use [http://ant.apache.org/ Ant] to build the code.
