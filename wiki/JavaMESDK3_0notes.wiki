@@ -6,7 +6,11 @@
 Sun Microsystems has released the Java ME SDK 3.0 for the Microsoft Windows platforms in the spring of 2009, see http://java.sun.com/javame/downloads/sdk30.jsp  which includes some significant changes to the toolkit. Here are some notes on relevant changes which will help you to use JInjector with it. These notes are based on our experiments and you may well discover other relevant issues - if so, please send a message to the JInjector user group or comment directly to this wiki entry.
 
 = Details =
-You will need to update your ant script and your jinjector properties file with the new paths and jar filenames. Details of typical changes follow:
+You will need to update your ant script and your jinjector properties file with the new paths and jar filenames. 
+
+To get you started, we've added an additional 'update' file to the Downloads section of this site [http://jinjector.googlecode.com/files/timemidlet_updates_for_sun_javame_sdk_3_0%20%2801%20Jun%202009%29.zip here]
+
+FYI: Details of typical changes follow:
 
 == Default directory ==
 The default directory is now {{{C:\Java_ME_platform_SDK_3.0}}}
