@@ -21,6 +21,8 @@ The default directory is now {{{C:\Java_ME_platform_SDK_3.0}}}
   * wma20.jar is superceeded by jsr205_2.0.jar
   * j2me_ws.jar is missing and we haven't found equivalent classes in 3.0
 
+The readme file for the Java ME 3.0 SDK contains a list of the documentation for various JSRs which may help you to identify which libraries to include. If you install it in the default folder the file is here file:///C:/Java_ME_platform_SDK_3.0/index.html
+
 == Location of the coverage files ==
 {{{C:\Documents and Settings\_yourusername_\javame-sdk\3.0\work\6\appdb\filesystem\root1}}
 
