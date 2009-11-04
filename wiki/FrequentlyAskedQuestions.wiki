@@ -18,7 +18,7 @@ When jinjector is used to collect coverage it will create the lcov coverage resu
 
 Now I've explained how things _should_ be, there are several reasons why you may not be able to find the file where / when you expect it. Here are some possible causes and fixes
 
-  # Temporary versions of folders for the specified skin: if the emulator finds an in.use file for a particular skin, it will create a unique, numbered temporary directory named as temp.DefaultColorPhone55 (55 is an example, the actual number is likely to be different). By cleaning up the DefaultColorPhone directory, while the emulator is not running, you should find the file is now in the expected location. See http://stackoverflow.com/questions/538167/j2mewtk-adding-files-to-defaultcolorphone-temp-settings for more information about this class of problem. 
+  # Temporary versions of folders for the specified skin: if the emulator finds an in.use file for a particular skin, it will create a unique, numbered temporary directory named as temp.DefaultColorPhone55 (55 is an example, the actual number is likely to be different). By cleaning up the DefaultColorPhone directory, while the emulator is not running, you should find the file is now in the expected location. See http://stackoverflow.com/questions/538167/j2mewtk-adding-files-to-defaultcolorphone-temp-settings and http://forums.sun.com/thread.jspa?threadID=5250026 for more information about this class of problem. 
 
 Notes: 
   * I think the temporary folders are sometimes purged when the emulator quits, which would mean the lcov file would also be deleted when it quits :( 
