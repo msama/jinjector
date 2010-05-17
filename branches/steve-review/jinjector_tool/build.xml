@@ -1,0 +1,102 @@
+<!--Copyright 2009 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<project name="JInjector" basedir="." default="main">
+
+    <property name="src.dir" value="src"/>
+    <property name="test.dir" value="test"/>
+
+	<property name="classes.dir" value="bin"/>
+    <property name="jar.dir" value="jar"/>
+    <property name="lib.dir" value="lib"/>
+	
+    <property name="main-class" value="com.google.devtools.build.wireless.testing.java.injector.ClassBytecodeLoader"/>
+
+    <path id="classpath">
+      <fileset dir="${lib.dir}">
+        <include name="**/*.jar"/>
+        <include name="**/*.zip"/>
+      </fileset>
+    </path>
+
+    <target name="clean">
+    	<delete dir="${classes.dir}"/>
+        <delete dir="${jar.dir}"/>
+    	<delete dir="${test.result.dir}"/>
+    </target>
+
+    <target name="compile-src">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/>
+    </target>
+
+    <target name="compile-test"  depends="compile-src">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${test.dir}" destdir="${classes.dir}" classpathref="classpath"/>
+    </target>
+
+    <target name="jar" depends="compile-src">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${ant.project.name}.jar" 
+        	basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+        	<zipfileset src="${lib.dir}/google-collect-snapshot-20090211.jar" includes="**/*.class"/>
+        	<zipfileset src="${lib.dir}/asm-all-3.1.jar" includes="**/*.class"/>
+        </jar>
+    	
+    </target>
+
+    <target name="run" depends="jar">
+        <java fork="true" classname="${main-class}" failonerror="true">
+            <classpath>
+                <path location = "${jar.dir}/${ant.project.name}.jar"/>
+            </classpath>
+        </java>
+    </target>
+
+	<target name="run-test" depends="compile-test">
+		<junit fork="no"
+			printsummary="yes"
+			showoutput="yes">
+			<classpath>
+				<path refid="classpath"/>
+				<path location="${classes.dir}/"/>
+			</classpath>
+			<batchtest fork="yes">
+			    <fileset dir="${test.dir}">
+			      <include name="**/*Test*.java"/>
+			      <exclude name="**/AllTests.java"/>
+			    </fileset>
+			</batchtest>
+		</junit>
+	</target>
+	
+  <target name="jar-src" depends=""
+  	  description="Creates a jar files containing all the source and resources.">
+    <mkdir dir="${jar.dir}"/>
+    <jar destfile="${jar.dir}/${ant.project.name}-src.jar" 
+        basedir="${src.dir}">
+    	<fileset dir="${src.dir}"/>
+    </jar>
+  </target>
+
+  <target name="clean-build" depends="clean,jar"/>
+
+  <target name="main" depends="clean,jar,run-test"/>
+
+</project>
+
