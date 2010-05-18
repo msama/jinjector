@@ -16,6 +16,7 @@
 package com.google.devtools.build.wireless.testing.java.injector.rim;
 
 import com.google.devtools.build.wireless.testing.java.injector.ClassNames;
+import com.google.devtools.build.wireless.testing.java.injector.ClassBytecodeLoader;
 
 /**
  * Constant pool for RIM instrumentation.
@@ -40,6 +41,5 @@ public class RimClassNames {
    * Class name used by the Unit-test test-runner for BlackBerry for 
    * handling the end of testing code.
    */
-  public static final String BB_TEST_RUNNER_END_TEST =
-    "com/google/sync/utils/blackberry/BBTestRunner$EndOfTestRunnable";
+  public static String RIM_END_TEST_CLASSNAME;
 }

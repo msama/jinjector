@@ -15,6 +15,7 @@
 
 package com.google.devtools.build.wireless.testing.java.injector;
 
+import com.google.devtools.build.wireless.testing.java.injector.rim.RimClassNames;
 import com.google.devtools.build.wireless.testing.java.injector.util.Bytes;
 import com.google.devtools.build.wireless.testing.java.injector.util.Closeables;
 import com.google.devtools.build.wireless.testing.java.injector.util.Files;
@@ -147,6 +148,9 @@ public class ClassBytecodeLoader {
    */
   public static final String PROPERTY_OUTPUT_JAR_DESCRIPTION = 
       "File name of the output jar.";
+
+  public static final String PROPERTY_RIM_END_TEST_CLASSNAME =
+      "rim.endTestClassName";
   
   /**
    * Contains all the instrumentation properties to be used during the
@@ -212,6 +216,9 @@ public class ClassBytecodeLoader {
     } else {
       instrumentedJar = new InstrumentedJarCreator(outputJar);
     }
+
+    RimClassNames.RIM_END_TEST_CLASSNAME = properties.getProperty(
+        PROPERTY_RIM_END_TEST_CLASSNAME);
     
     // Checks and extract the input jar if it exists 
     Manifest manifest = uncompressInputJarIfRequired(binaryFolder);
