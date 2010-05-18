@@ -278,7 +278,7 @@ public enum Platform {
         (String className, String superName) {
       // TODO: This is a temporary implementation until the 
       // enumerations are refactored as per the class-level comments
-      return RimClassNames.BB_TEST_RUNNER_END_TEST.equals(className);
+      return RimClassNames.RIM_END_TEST_CLASSNAME.equals(className);
     }
     
     /**
